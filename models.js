@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = new Sequelize('postgres://localhost:5432/wikistack', {logging:false});
 
-db.sync({force: true}); // Drops all tables them recreates them based on our JS definitions. Very dangerous to use!
+// db.sync({force: true}); // Drops all tables them recreates them based on our JS definitions. Very dangerous to use!
 
 db.authenticate().
 then(() => {
@@ -44,5 +44,7 @@ const User = db.define('user', {
     }
   }
 });
+
+Page.belongsTo(User, {as: 'author'});
 
 module.exports = { Page, User, db };
